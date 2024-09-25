@@ -23,12 +23,12 @@ fut_expiry = '2024-09-26'
 
 while True:
     now = datetime.now()
-    if t(9, 30)<t(datetime.now().time().hour, datetime.now().time().minute)<t(15, 30) :
+    if t(4, 0)<t(datetime.now().time().hour, datetime.now().time().minute)<t(10, 0) :
         today = datetime.now().strftime("%Y-%m-%d")
         yesterday = (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d")
         
         
-        if order == 0 and now.second == 0 and t(datetime.now().time().hour, datetime.now().time().minute)<t(15, 0) :
+        if order == 0 and now.second == 0 and t(datetime.now().time().hour, datetime.now().time().minute)<t(9, 30) :
             SL = 0
             initial_point = 0
             data = breeze.get_historical_data_v2(interval="1minute",
@@ -166,7 +166,7 @@ while True:
             if pnl > initial_point :
                 initial_point = pnl
                 SL = exit_premium - 15
-            if exit_premium <= SL or (t(datetime.now().time().hour, datetime.now().time().minute) == t(15,20)) :
+            if exit_premium <= SL or (t(datetime.now().time().hour, datetime.now().time().minute) == t(9,50)) :
                 order = 0
                 exit_time = datetime.now().strftime('%H:%M:%S')
                 print(now, 'SL Hits, PNL is:', pnl)
@@ -217,8 +217,8 @@ while True:
             olhc = data['Success']
             olhc = pd.DataFrame(olhc)
             olhc['datetime'] = pd.to_datetime(olhc['datetime'])
-            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('09:15').time()) &
-                           (olhc['datetime'].dt.time <= pd.to_datetime('15:29').time())]
+            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('03:45').time()) &
+                           (olhc['datetime'].dt.time <= pd.to_datetime('9:59').time())]
         
             olhc['12_EMA'] = olhc['close'].ewm(span=12, adjust=False).mean()
             olhc['26_EMA'] = olhc['close'].ewm(span=26, adjust=False).mean()
