@@ -44,8 +44,8 @@ while True:
             olhc = data['Success']
             olhc = pd.DataFrame(olhc)
             olhc['datetime'] = pd.to_datetime(olhc['datetime'])
-            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('09:15').time()) &
-                           (olhc['datetime'].dt.time <= pd.to_datetime('15:29').time())]
+            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('03:45').time()) &
+                           (olhc['datetime'].dt.time <= pd.to_datetime('09:59').time())]
         
             olhc['12_EMA'] = olhc['close'].ewm(span=12, adjust=False).mean()
             olhc['26_EMA'] = olhc['close'].ewm(span=26, adjust=False).mean()
@@ -135,8 +135,8 @@ while True:
             olhc = data['Success']
             olhc = pd.DataFrame(olhc)
             olhc['datetime'] = pd.to_datetime(olhc['datetime'])
-            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('09:15').time()) &
-                           (olhc['datetime'].dt.time <= pd.to_datetime('15:29').time())]
+            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('03:45').time()) &
+                           (olhc['datetime'].dt.time <= pd.to_datetime('09:59').time())]
         
             olhc['12_EMA'] = olhc['close'].ewm(span=12, adjust=False).mean()
             olhc['26_EMA'] = olhc['close'].ewm(span=26, adjust=False).mean()
@@ -217,8 +217,8 @@ while True:
             olhc = data['Success']
             olhc = pd.DataFrame(olhc)
             olhc['datetime'] = pd.to_datetime(olhc['datetime'])
-            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('09:15').time()) &
-                           (olhc['datetime'].dt.time <= pd.to_datetime('03:29').time())]
+            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('03:45').time()) &
+                           (olhc['datetime'].dt.time <= pd.to_datetime('09:29').time())]
         
             olhc['12_EMA'] = olhc['close'].ewm(span=12, adjust=False).mean()
             olhc['26_EMA'] = olhc['close'].ewm(span=26, adjust=False).mean()
