@@ -217,8 +217,8 @@ while True:
             olhc = data['Success']
             olhc = pd.DataFrame(olhc)
             olhc['datetime'] = pd.to_datetime(olhc['datetime'])
-            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('03:45').time()) &
-                           (olhc['datetime'].dt.time <= pd.to_datetime('9:59').time())]
+            olhc = olhc[(olhc['datetime'].dt.time >= pd.to_datetime('09:15').time()) &
+                           (olhc['datetime'].dt.time <= pd.to_datetime('03:29').time())]
         
             olhc['12_EMA'] = olhc['close'].ewm(span=12, adjust=False).mean()
             olhc['26_EMA'] = olhc['close'].ewm(span=26, adjust=False).mean()
@@ -246,7 +246,7 @@ while True:
             if pnl > initial_point :
                 initial_point = pnl
                 SL = exit_premium - 15
-            if exit_premium <= SL or (t(datetime.now().time().hour, datetime.now().time().minute) == t(15,20)) :
+            if exit_premium <= SL or (t(datetime.now().time().hour, datetime.now().time().minute) == t(9,50)) :
                 order = 0
                 exit_time = datetime.now().strftime('%H:%M:%S')
                 print(now, 'SL Hits, PNL is:', pnl)
