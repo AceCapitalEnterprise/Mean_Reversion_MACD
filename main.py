@@ -2,7 +2,7 @@ from breeze_connect import BreezeConnect
 import urllib
 breeze = BreezeConnect(api_key="77%U3I71634^099gN232777%316Q~v4=")
 breeze.generate_session(api_secret="9331K77(I8_52JG2K73$5438q95772j@",
-                        session_token="47648339")
+                        session_token="47717769")
 
 import numpy as np
 import pandas as pd
@@ -31,7 +31,9 @@ while True:
         if order == 0 and now.second == 0 and t(datetime.now().time().hour, datetime.now().time().minute)<t(9, 30) :
             SL = 0
             initial_point = 0
-            data = breeze.get_historical_data_v2(interval="1minute",
+            for j in range(0, 5):
+                try:
+                    data = breeze.get_historical_data_v2(interval="1minute",
                                                      from_date= f"{yesterday}T00:00:00.000Z",
                                                      to_date= f"{today}T17:00:00.000Z",
                                                      stock_code="NIFTY",
@@ -40,6 +42,9 @@ while True:
                                                      expiry_date=f'{fut_expiry}T07:00:00.000Z',
                                                      right="others",
                                                      strike_price="0")
+                    break
+                except:
+                    pass
         
             olhc = data['Success']
             olhc = pd.DataFrame(olhc)
@@ -74,13 +79,17 @@ while True:
                     subsequent_rows = olhc.iloc[-len(olhc) + 7:]
                     if any(value < 60 for value in subsequent_rows['RSI_14']):
                         if last_row['Signal_Line']>last_row['MACD'] :
-                       
-                            leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
-                                                        exchange_code="NFO",
-                                                        product_type="options",
-                                                        expiry_date=f'{expiry}T06:00:00.000Z',
-                                                        right="put",
-                                                        strike_price=atm)
+                            for j in range(0, 5):
+                                try:
+                                    leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
+                                                                        exchange_code="NFO",
+                                                                        product_type="options",
+                                                                        expiry_date=f'{expiry}T06:00:00.000Z',
+                                                                        right="put",
+                                                                        strike_price=atm)
+                                    break
+                                except:
+                                    pass
                             leg = leg['Success']
                             leg = pd.DataFrame(leg)
                             buy_premium = float(leg['ltp'][0])
@@ -97,13 +106,17 @@ while True:
                     subsequent_rows = olhc.iloc[-len(olhc) + 7:]
                     if any(value > 40 for value in subsequent_rows['RSI_14']):
                         if last_row['Signal_Line']<last_row['MACD'] :
-                       
-                            leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
-                                                        exchange_code="NFO",
-                                                        product_type="options",
-                                                        expiry_date=f'{expiry}T06:00:00.000Z',
-                                                        right="call",
-                                                        strike_price=atm)
+                            for j in range(0, 5):
+                                try:
+                                    leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
+                                                                exchange_code="NFO",
+                                                                product_type="options",
+                                                                expiry_date=f'{expiry}T06:00:00.000Z',
+                                                                right="call",
+                                                                strike_price=atm)
+                                    break
+                                except:
+                                    pass
                             leg = leg['Success']
                             leg = pd.DataFrame(leg)
                             buy_premium = float(leg['ltp'][0])
@@ -122,7 +135,9 @@ while True:
                 
         if order == 1 :
             time.sleep(20)
-            data = breeze.get_historical_data_v2(interval="1minute",
+            for j in range(0, 5):
+                try:
+                    data = breeze.get_historical_data_v2(interval="1minute",
                                                      from_date= f"{yesterday}T00:00:00.000Z",
                                                      to_date= f"{today}T17:00:00.000Z",
                                                      stock_code="NIFTY",
@@ -131,6 +146,9 @@ while True:
                                                      expiry_date=f'{fut_expiry}T07:00:00.000Z',
                                                      right="others",
                                                      strike_price="0")
+                    break
+                except:
+                    pass
         
             olhc = data['Success']
             olhc = pd.DataFrame(olhc)
@@ -152,13 +170,17 @@ while True:
             last_row = olhc.iloc[-1]
 
             
-            
-            leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
+            for j in range(0, 5):
+                try:
+                    leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
                                                         exchange_code="NFO",
                                                         product_type="options",
                                                         expiry_date=f'{expiry}T06:00:00.000Z',
                                                         right="call",
                                                         strike_price=atm)
+                    break
+                except:
+                    pass
             leg = leg['Success']
             leg = pd.DataFrame(leg)
             exit_premium = float(leg['ltp'][0])
@@ -204,7 +226,9 @@ while True:
                 
         if order == -1 :
             time.sleep(20)
-            data = breeze.get_historical_data_v2(interval="1minute",
+            for j in range(0, 5):
+                try:
+                    data = breeze.get_historical_data_v2(interval="1minute",
                                                      from_date= f"{yesterday}T00:00:00.000Z",
                                                      to_date= f"{today}T17:00:00.000Z",
                                                      stock_code="NIFTY",
@@ -213,6 +237,9 @@ while True:
                                                      expiry_date=f'{fut_expiry}T07:00:00.000Z',
                                                      right="others",
                                                      strike_price="0")
+                    break
+                except:
+                    pass
         
             olhc = data['Success']
             olhc = pd.DataFrame(olhc)
@@ -232,13 +259,17 @@ while True:
             olhc['ATR'] = ta.atr(olhc['high'], olhc['low'], olhc['close'], length=14)
         
             last_row = olhc.iloc[-1]
-            
-            leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
+            for j in range(0, 5):
+                try:
+                    leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
                                                         exchange_code="NFO",
                                                         product_type="options",
                                                         expiry_date=f'{expiry}T06:00:00.000Z',
                                                         right="put",
                                                         strike_price=atm)
+                    break
+                except:
+                    pass
             leg = leg['Success']
             leg = pd.DataFrame(leg)
             exit_premium = float(leg['ltp'][0])
@@ -264,12 +295,17 @@ while True:
             if last_row['Signal_Line']<last_row['MACD'] or pnl<(-15) :
                 order = 0
                 exit_time = datetime.now().strftime('%H:%M:%S')
-                leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
+                for j in range(0, 5):
+                    try:
+                        leg = breeze.get_option_chain_quotes(stock_code="NIFTY",
                                                         exchange_code="NFO",
                                                         product_type="options",
                                                         expiry_date=f'{expiry}T06:00:00.000Z',
                                                         right="put",
                                                         strike_price=atm)
+                        break
+                    except:
+                        pass
                 leg = leg['Success']
                 leg = pd.DataFrame(leg)
                 exit_premium = float(leg['ltp'][0])
@@ -290,7 +326,4 @@ while True:
                 
             else:
                 print(now, 'No Exit Condition')
-                
-        
-                
-  
+              
