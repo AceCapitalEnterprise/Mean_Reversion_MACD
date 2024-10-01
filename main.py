@@ -28,7 +28,7 @@ while True:
         yesterday = (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d")
         
         
-        if order == 0 and now.second == 0 and t(datetime.now().time().hour, datetime.now().time().minute)<t(4, 0) :
+        if order == 0 and now.second == 0 and t(datetime.now().time().hour, datetime.now().time().minute)<t(9, 0) :
             SL = 0
             initial_point = 0
             for j in range(0, 5):
